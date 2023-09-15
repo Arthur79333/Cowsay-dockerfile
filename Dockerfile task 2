@@ -1,0 +1,23 @@
+# Use the official Node.js image as the base image
+FROM node:14
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json to the working directory
+COPY . ./
+
+# Make the entry-point.sh executable
+RUN chmod +x entry-point.sh
+
+# Install the dependencies
+WORKDIR /app/src
+RUN npm install
+
+
+# Expose port 8080 (default port for the Cowsay server)
+EXPOSE 8080
+
+# Run the entry-point.sh script when the container starts
+CMD ["/bin/bash", "-c", "/app/entry-point.sh 3001"]
+
